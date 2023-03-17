@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/RickHPotter/jwt/initialisers"
 	"github.com/RickHPotter/jwt/routers"
 )
@@ -13,7 +11,7 @@ func init() {
 	initialisers.SyncDatabase()
 }
 
+// * run with `compiledaemon --command="./jwt"`
 func main() {
 	routers.LoadRoute()
-	fmt.Println("Hello Again.")
 }

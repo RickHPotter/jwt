@@ -11,7 +11,32 @@ func init() {
 	initialisers.SyncDatabase()
 }
 
-// * run with `compiledaemon --command="./jwt"`
+// * run with `compiledaemon --command="./jwt"` after [1]
 func main() {
-	routers.LoadRoute()
+	routers.LoadRouters()
 }
+
+/* [1]
+// !
+
+cd go
+cd src/github.com/RickHPotter
+mkdir jwt
+cd jwt
+
+got mod init
+
+go get -u gorm.io/gorm
+go get -u gorm.io/driver/postgres
+go get -u github.com/gin-gonic/gin
+go get -u golang.org/x/crypto/bcrypt
+go get -u github.com/golang-jwt/jwt/v4
+go get github.com/joho/godotenv
+go get github.com/githubnemo/CompileDaemon
+
+go install github.com/githubnemo/CompileDaemon
+
+code .
+
+// !
+*/

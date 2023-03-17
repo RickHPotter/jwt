@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func LoadRoute() {
+func LoadRouters() {
 	r := gin.Default()
 
 	r.POST("/signup", controllers.Signup)

@@ -30,16 +30,15 @@ func RequireAuth(c *gin.Context) {
 	// Decode
 	// Parse takes the token string and a function for looking up the key
 	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-		if err != nil {
-			Abort(c, "Failed to decode cookie.")
-		}
-
 		// method of signing has to be the same, a bit lost here though
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(os.Getenv("SECRET")), nil
 	})
+	if err != nil {
+		Abort(c, "Failed to decode cookie.")
+	}
 
 	// Validation
 	// method of claims also has to match, I suppose,
@@ -61,7 +60,8 @@ func RequireAuth(c *gin.Context) {
 		// Attach to request body so that it can be used in the controllers
 		c.Set("user", user)
 
-		// Continue
+		// this is a handle before another handle, therefore you need to
+		// tell the context to proceed to the next handle, as far as I can see
 		c.Next()
 	} else {
 		Abort(c, "Something wrong with JWT Claims.")
